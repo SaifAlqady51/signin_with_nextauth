@@ -10,7 +10,7 @@ interface Body{
 }
 
 
-const Post = async (request:NextRequest) =>{
+export async function POST(request:NextRequest){
     const body = await request.json();
     const {email,name,password}   = body as Body
 
@@ -36,3 +36,4 @@ const Post = async (request:NextRequest) =>{
 
 
 }
+

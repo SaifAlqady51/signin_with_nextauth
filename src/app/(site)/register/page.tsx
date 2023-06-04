@@ -4,9 +4,12 @@ import axios from 'axios';
 
 export default function Register() {
     const [data,setData] = useState({email:'',name:'',password:''})
+    console.log(data)
     const registerUser = (e:React.ChangeEvent<HTMLFormElement>) => {
-      e.preventDefault
-      axios.post('/api/register',data).then(() => alert('User has been registered')).catch(() => alert('an error occurred'))
+      e.preventDefault()
+      axios.post('/api/register',data)
+      .then(() => alert('User has been registered')).
+      catch(() => alert('an error occurred'))
     }
 
     return (
