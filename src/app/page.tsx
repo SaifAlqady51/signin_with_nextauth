@@ -7,10 +7,11 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>Server Side Rendering</h1>
+      <h1>Server Side Rendered</h1>
       {/* example of server rendering */}
       <pre>{JSON.stringify(session)}</pre>
       {/* example of client rendering*/}
+      <h1>Client Side Rendered</h1>
       <User />
     </div>
   )
