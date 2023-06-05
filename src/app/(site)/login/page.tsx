@@ -1,11 +1,13 @@
 'use client'
 import {useState} from 'react'
-import axios from 'axios';
+import {signIn} from 'next-auth/react'
 
 export default function Login() {
     const [data,setData] = useState({email:'',password:''})
     const loginUser = (e:React.ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
+      signIn('credentials', {...data, redirect:false})
+      .then(() => alert('User has loged in'))
 
     }
 
