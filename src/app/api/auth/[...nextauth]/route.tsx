@@ -7,12 +7,6 @@ import GithubProvider from 'next-auth/providers/github'
 import { NextAuthOptions } from "next-auth";
 import bcrypt from 'bcrypt'
 
-type User = {
-    id:number,
-    name:string,
-    email:string
-}
-
 
 export const authOptions : NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET, 
@@ -31,9 +25,9 @@ export const authOptions : NextAuthOptions = {
             credentials : {
                 email : {label:'Email',type: 'text',placeholder:'joe@example.com'},
                 password : {label:'Password',type: 'password',placeholder:'password'},
-                username : {label:'Username',type: 'text',placeholder:'joe'}
+                name : {label:'Name',type: 'text',placeholder:'joe'}
             },
-            async authorize(credentials ) : Promise<any> {
+            async authorize(credentials) : Promise<any> {
 
                 //check if if credentials is entered 
 

@@ -18,7 +18,8 @@ export async function POST(request:NextRequest){
         return new NextResponse('Missing Creditials',{status:400})
     }
 
-    const exist = await prisma.user.findUnique({
+
+    const exist = await prisma.user.findFirst({
         where:{email}
     })
 
