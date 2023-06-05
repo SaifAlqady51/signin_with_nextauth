@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
 import { NextAuthOptions } from "next-auth";
-
+import bcrypt from 'bcrypt'
 
 type User = {
     id:number,
@@ -33,9 +33,33 @@ export const authOptions : NextAuthOptions = {
                 password : {label:'Password',type: 'password',placeholder:'password'},
                 username : {label:'Username',type: 'text',placeholder:'joe'}
             },
-            async authorize(credentials) {
-                const user = {id:1,name:"saif",email:"saif@example.com"}
-                return user  as any;
+            async authorize(credentials ) : Promise<any> {
+
+                //check if if credentials is entered 
+
+                if(!credentials?.email || ! credentials?.password){
+                    throw new Error('Please enter an email address and a password')
+                } 
+
+                //check to see if user exists
+                const user = await prisma.user.findUnique({
+                    where: {
+                        email: credentials?.email
+                    }
+                })
+                //check if user was found and has a password
+
+                if(!user || !user?.hashedPassword) {
+                    throw new Error('User not found')
+                }
+                //check if password matches
+                const pass = bcrypt.compare(user.hashedPassword, credentials.password)
+                if(!pass){
+                    throw new Error('Incorrect password')
+                }
+
+                return user;
+
             } 
         }) 
 
